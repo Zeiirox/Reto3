@@ -1,0 +1,138 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    [SerializeField] private float playerSpeed = 5f;
+    [SerializeField] private float playerSpeedRun = 2f;
+    [SerializeField] private float gravity = 9.8f;
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float slideVelocity = 3;
+    [SerializeField] private float slopeForceDown = -10;
+
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private Animator animator;
+
+    private CharacterController player;
+
+    private Vector3 playerInput;
+    private Vector3 movePlayer;
+    private Vector3 camForward;
+    private Vector3 camRight;
+    private Vector3 hitNormal;
+
+
+    private float horizontalMove;
+    private float verticalMove;
+    private float fallVelocity;
+
+    private bool isOnSlope = false;
+
+
+
+    void Start()
+    {
+        player = gameObject.GetComponent<CharacterController>();
+    }
+    
+    void Update()
+    {
+        horizontalMove = Input.GetAxis("Horizontal");
+        verticalMove = Input.GetAxis("Vertical");
+
+        playerInput = new Vector3(horizontalMove, 0, verticalMove);
+        playerInput = Vector3.ClampMagnitude(playerInput, 1);
+        PlayerAnimation();
+
+        CamDirection();
+        movePlayer = playerInput.x * camRight + playerInput.z * camForward;
+        movePlayer = movePlayer * playerSpeed;
+        player.transform.LookAt(player.transform.position + movePlayer);
+
+        SetGravity();
+
+        PlayerSkills();
+
+        player.Move(movePlayer * Time.deltaTime);
+        
+    }
+
+    private void CamDirection()
+    {
+        camForward = mainCamera.transform.forward;
+        camRight = mainCamera.transform.right;
+
+        camForward.y = 0;
+        camRight.y = 0;
+
+        camForward = camForward.normalized;
+        camRight = camRight.normalized;
+    }
+
+    private void SetGravity()
+    {
+        if (player.isGrounded)
+        {
+            fallVelocity = -gravity * Time.deltaTime;
+            movePlayer.y = fallVelocity;
+        }
+        else
+        {
+            fallVelocity -= gravity * Time.deltaTime;
+            movePlayer.y = fallVelocity;
+        }
+        SlideDown();
+    }
+
+    private void PlayerSkills()
+    {
+        if (player.isGrounded && Input.GetButtonDown("Jump"))
+        {
+            //animator.SetInteger("State", 3);
+            animator.SetTrigger("Jump");
+            fallVelocity = jumpForce;
+            movePlayer.y = fallVelocity;
+        }
+    }
+
+    private void SlideDown()
+    {
+        isOnSlope = Vector3.Angle(Vector3.up, hitNormal) >= player.slopeLimit;
+        if (isOnSlope)
+        {
+            movePlayer.x += ((1f - hitNormal.y) * hitNormal.x) * slideVelocity;
+            movePlayer.z += ((1f - hitNormal.y) * hitNormal.z) * slideVelocity;
+            movePlayer.y += slopeForceDown;
+        }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        hitNormal = hit.normal;
+    }
+
+    private void PlayerAnimation()
+    {
+        if (player.isGrounded)
+        {
+            if ((playerInput.magnitude * playerSpeed) > 0)
+            {
+                animator.SetInteger("State", 1);
+
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    animator.SetInteger("State", 2);
+                    movePlayer = playerInput * (playerSpeed + playerSpeedRun);
+                }
+            }
+            else 
+            {
+                animator.SetInteger("State", 0);
+            }
+        }
+    }
+
+    private void OnAnimatorMove(){}
+}

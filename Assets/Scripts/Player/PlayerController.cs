@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 5f;
-    [SerializeField] private float playerSpeedRun = 2f;
+    [SerializeField] private float playerRunSpeed = 5f;
     [SerializeField] private float gravity = 9.8f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float slideVelocity = 3;
@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     private float horizontalMove;
     private float verticalMove;
     private float fallVelocity;
+    private float walkVelocity;
+    private float originalPlayerSpeed;
+
 
     private bool isOnSlope = false;
 
@@ -35,6 +38,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         player = gameObject.GetComponent<CharacterController>();
+        originalPlayerSpeed = playerSpeed;
     }
     
     void Update()
@@ -44,7 +48,19 @@ public class PlayerController : MonoBehaviour
 
         playerInput = new Vector3(horizontalMove, 0, verticalMove);
         playerInput = Vector3.ClampMagnitude(playerInput, 1);
-        PlayerAnimation();
+        walkVelocity = playerInput.magnitude * playerSpeed;
+        animator.SetFloat("PlayerWalkVelocity", walkVelocity);
+
+        if (walkVelocity > 0 && Input.GetKey(KeyCode.LeftShift))
+        {
+            playerSpeed = playerRunSpeed;
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            playerSpeed = originalPlayerSpeed;
+            animator.SetBool("isRunning", false);
+        }
 
         CamDirection();
         movePlayer = playerInput.x * camRight + playerInput.z * camForward;
@@ -82,18 +98,22 @@ public class PlayerController : MonoBehaviour
         {
             fallVelocity -= gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
+            animator.SetFloat("PlayerVerticalVelocity", movePlayer.y);
         }
+        animator.SetBool("isGrounded", player.isGrounded);
         SlideDown();
     }
 
     private void PlayerSkills()
     {
-        if (player.isGrounded && Input.GetButtonDown("Jump"))
+        if (player.isGrounded)
         {
-            //animator.SetInteger("State", 3);
-            animator.SetTrigger("Jump");
-            fallVelocity = jumpForce;
-            movePlayer.y = fallVelocity;
+            if (Input.GetButtonDown("Jump"))
+            {
+                fallVelocity = jumpForce;
+                movePlayer.y = fallVelocity;
+                animator.SetTrigger("PlayerJump");
+            }
         }
     }
 
@@ -111,27 +131,6 @@ public class PlayerController : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         hitNormal = hit.normal;
-    }
-
-    private void PlayerAnimation()
-    {
-        if (player.isGrounded)
-        {
-            if ((playerInput.magnitude * playerSpeed) > 0)
-            {
-                animator.SetInteger("State", 1);
-
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    animator.SetInteger("State", 2);
-                    movePlayer = playerInput * (playerSpeed + playerSpeedRun);
-                }
-            }
-            else 
-            {
-                animator.SetInteger("State", 0);
-            }
-        }
     }
 
     private void OnAnimatorMove(){}

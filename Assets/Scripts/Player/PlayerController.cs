@@ -106,14 +106,11 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerSkills()
     {
-        if (player.isGrounded)
+        if (player.isGrounded && Input.GetButtonDown("Jump"))
         {
-            if (Input.GetButtonDown("Jump"))
-            {
-                fallVelocity = jumpForce;
-                movePlayer.y = fallVelocity;
-                animator.SetTrigger("PlayerJump");
-            }
+            fallVelocity = jumpForce;
+            movePlayer.y = fallVelocity;
+            animator.SetTrigger("PlayerJump");
         }
     }
 
@@ -132,6 +129,8 @@ public class PlayerController : MonoBehaviour
     {
         hitNormal = hit.normal;
     }
-
-    private void OnAnimatorMove(){}
+    private void OnAnimatorMove()
+    {
+        
+    }
 }

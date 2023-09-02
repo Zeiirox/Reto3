@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Animator animator;
 
-    private CharacterController player;
+    public CharacterController player;
 
     private Vector3 playerInput;
     private Vector3 movePlayer;
@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
 
     private bool isOnSlope = false;
+    public bool canMove;
 
 
 
@@ -39,39 +40,44 @@ public class PlayerController : MonoBehaviour
     {
         player = gameObject.GetComponent<CharacterController>();
         originalPlayerSpeed = playerSpeed;
+        canMove = true;
     }
     
     void Update()
     {
-        horizontalMove = Input.GetAxis("Horizontal");
-        verticalMove = Input.GetAxis("Vertical");
-
-        playerInput = new Vector3(horizontalMove, 0, verticalMove);
-        playerInput = Vector3.ClampMagnitude(playerInput, 1);
-        walkVelocity = playerInput.magnitude * playerSpeed;
-        animator.SetFloat("PlayerWalkVelocity", walkVelocity);
-
-        if (walkVelocity > 0 && Input.GetKey(KeyCode.LeftShift))
+        if (canMove)
         {
-            playerSpeed = playerRunSpeed;
-            animator.SetBool("isRunning", true);
+            horizontalMove = Input.GetAxis("Horizontal");
+            verticalMove = Input.GetAxis("Vertical");
+
+            playerInput = new Vector3(horizontalMove, 0, verticalMove);
+            playerInput = Vector3.ClampMagnitude(playerInput, 1);
+            walkVelocity = playerInput.magnitude * playerSpeed;
+            animator.SetFloat("PlayerWalkVelocity", walkVelocity);
+
+            if (walkVelocity > 0 && Input.GetKey(KeyCode.LeftShift))
+            {
+                playerSpeed = playerRunSpeed;
+                animator.SetBool("isRunning", true);
+            }
+            else
+            {
+                playerSpeed = originalPlayerSpeed;
+                animator.SetBool("isRunning", false);
+            }
+
+            CamDirection();
+            movePlayer = playerInput.x * camRight + playerInput.z * camForward;
+            movePlayer = movePlayer * playerSpeed;
+            player.transform.LookAt(player.transform.position + movePlayer);
+
+            SetGravity();
+
+            PlayerSkills();
+
+            player.Move(movePlayer * Time.deltaTime);
+
         }
-        else
-        {
-            playerSpeed = originalPlayerSpeed;
-            animator.SetBool("isRunning", false);
-        }
-
-        CamDirection();
-        movePlayer = playerInput.x * camRight + playerInput.z * camForward;
-        movePlayer = movePlayer * playerSpeed;
-        player.transform.LookAt(player.transform.position + movePlayer);
-
-        SetGravity();
-
-        PlayerSkills();
-
-        player.Move(movePlayer * Time.deltaTime);
         
     }
 

@@ -17,7 +17,10 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && playerController.player.isGrounded && canAttack)
+        if (Input.GetButtonDown("Fire1") 
+            && playerController.player.isGrounded 
+            && !playerController.isDead
+            && canAttack)
         {
             animator.SetTrigger("Attack");
 

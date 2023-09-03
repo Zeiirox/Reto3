@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 830970147837011535}
   - component: {fileID: 830970147837981545}
   - component: {fileID: 830970147840061524}
-  - component: {fileID: 830970147840061547}
+  - component: {fileID: 1300095186}
   - component: {fileID: 830970147840061544}
   m_Layer: 0
   m_Name: CactusObjectEnemy
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 77f34d55cab75c741af8e49d369939ba, type: 2}
+  - {fileID: 2100000, guid: 2931534f50500b849b6a777e26183808, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,8 +102,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &830970147840061547
-CapsuleCollider:
+--- !u!64 &1300095186
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -112,10 +112,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.39835605
-  m_Height: 3.9174848
-  m_Direction: 1
-  m_Center: {x: 0.022445679, y: 1.9604464, z: -0.0073610246}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: c4cca24570a3eb1478f1ede521f132d2, type: 3}
 --- !u!114 &830970147840061544
 MonoBehaviour:
   m_ObjectHideFlags: 0

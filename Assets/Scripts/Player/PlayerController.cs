@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isOnSlope = false;
     public bool canMove;
+    public bool isDead;
 
 
 
@@ -41,10 +42,12 @@ public class PlayerController : MonoBehaviour
         player = gameObject.GetComponent<CharacterController>();
         originalPlayerSpeed = playerSpeed;
         canMove = true;
+        isDead = false;
     }
     
     void Update()
     {
+        if (isDead) return;
         if (canMove)
         {
             horizontalMove = Input.GetAxis("Horizontal");

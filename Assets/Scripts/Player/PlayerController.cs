@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private bool isOnSlope = false;
     public bool canMove;
     public bool isDead;
-
+    public bool collecting;
 
 
     void Start()

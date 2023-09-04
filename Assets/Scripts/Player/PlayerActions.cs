@@ -9,7 +9,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private GameObject weaponPlayer;
 
-    private bool canAttack;
+    public bool canAttack;
     void Start()
     {
         canAttack = true;

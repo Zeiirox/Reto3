@@ -6,6 +6,10 @@ public class CrystalsController : MonoBehaviour
 {
     [SerializeField] private Animator playerAnimator;
 
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))

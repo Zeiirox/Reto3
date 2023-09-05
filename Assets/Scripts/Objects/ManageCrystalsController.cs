@@ -9,7 +9,7 @@ public class ManageCrystalsController : MonoBehaviour
 
     public static int collectedCrystals { get; set; }
     private int totalCrystals;
-    private Transform[] crystals;
+    private List<Transform> crystals = new List<Transform>();
 
 
     private void Start()
@@ -22,11 +22,14 @@ public class ManageCrystalsController : MonoBehaviour
 
     void Update()
     {
-        int indexToEnable = totalCrystals - collectedCrystals;
-        crystals[indexToEnable].gameObject.SetActive(true);
         if (collectedCrystals == totalCrystals)
         {
             Debug.Log("SIIIII GANASTE OMEEE");
+        }
+        else
+        {
+            int indexToEnable = totalCrystals - (collectedCrystals + 1);
+            crystals[indexToEnable].gameObject.SetActive(true);
         }
 
         counter.text = collectedCrystals + " / " + totalCrystals;
@@ -36,8 +39,7 @@ public class ManageCrystalsController : MonoBehaviour
     {
         for (int i = 0; i < totalCrystals; i++)
         {
-            crystals[i] = transform.GetChild(i);
-            crystals[i].gameObject.SetActive(false);
+            crystals.Add(transform.GetChild(i));
         }
     }
 }

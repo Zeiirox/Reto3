@@ -7836,12 +7836,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 1221621523}
-  crystals:
-  - {fileID: 873044374}
-  - {fileID: 2082765951}
-  - {fileID: 1447309799}
-  - {fileID: 1355360934}
-  - {fileID: 1442288756}
 --- !u!1001 &872915154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15470,6 +15464,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6865cd0bad9b4fa4bb6ad103db728620, type: 3}
   m_PrefabInstance: {fileID: 1891026830}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1891026833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602915175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcca863a396ee8348b181568c23f8b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystals:
+  - {fileID: 873044374}
+  - {fileID: 2082765951}
+  - {fileID: 1447309799}
+  - {fileID: 1355360934}
+  - {fileID: 1442288756}
 --- !u!1001 &1892826450
 PrefabInstance:
   m_ObjectHideFlags: 0

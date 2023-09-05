@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerDamage playerDamage;
     [SerializeField] private GameObject weaponPlayer;
 
     public bool canAttack;
@@ -51,5 +53,13 @@ public class PlayerActions : MonoBehaviour
     {
         playerController.canMove = true;
         canAttack = true;
+    }
+
+    public void Revive()
+    {
+        playerController.isDead = false;
+        animator.Play("PlayerMotion");
+        playerDamage.CurrentLife = playerDamage.PlayerLife;
+        playerDamage.LifeBar.fillAmount = playerDamage.CurrentLife / playerDamage.PlayerLife;
     }
 }

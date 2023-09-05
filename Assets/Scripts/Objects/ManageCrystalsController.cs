@@ -6,8 +6,9 @@ using TMPro;
 public class ManageCrystalsController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI counter;
+    [SerializeField] public GameObject[] crystals;
 
-    public  int collectedCrystals;
+    public static int collectedCrystals;
     private int totalCristals;
 
     private void Start()

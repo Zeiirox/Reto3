@@ -14,7 +14,7 @@ public class DialogueController : MonoBehaviour
 
     private void Start()
     {
-        StartDialogue();
+        
     }
     // Update is called once per frame
     public void Update()
@@ -63,5 +63,13 @@ public class DialogueController : MonoBehaviour
             playerActions.canAttack = true;
             gameObject.SetActive(false);
         }
+    }
+
+    public void EndDialoge()
+    {
+        StopAllCoroutines();
+        dialogueText.text = string.Empty;
+        playerActions.canAttack = true;
+        gameObject.SetActive(false);
     }
 }

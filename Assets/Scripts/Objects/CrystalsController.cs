@@ -7,9 +7,21 @@ public class CrystalsController : MonoBehaviour
     private ManageCrystalsController ManageCrystalsController;
     [SerializeField] private Animator playerAnimator;
 
+    public bool isVisible;
+
     private void Start()
     {
         ManageCrystalsController = FindObjectOfType<ManageCrystalsController>();
+        isVisible = false;
+        gameObject.SetActive(isVisible);
+    }
+
+    private void Update()
+    {
+        if (isVisible)
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     private void OnTriggerStay(Collider other)

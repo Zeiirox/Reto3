@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Animator animator;
 
-    public CharacterController player;
+    [SerializeField] public CharacterController player;
 
     private Vector3 playerInput;
     private Vector3 movePlayer;
@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        player = gameObject.GetComponent<CharacterController>();
         originalPlayerSpeed = playerSpeed;
         canMove = true;
         isDead = false;

@@ -6,10 +6,14 @@ public class NPCsController : MonoBehaviour
 {
     [SerializeField] private DialogueController dialogue;
     [SerializeField] private float rotationSpeed;
+
+    private Animator animator;
+
     private Quaternion originRotation;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         originRotation = transform.rotation;
     }
 
@@ -17,6 +21,7 @@ public class NPCsController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            animator.SetBool("Talking", true);
             dialogue.gameObject.SetActive(true);
             dialogue.StartDialogue();
         }
@@ -34,6 +39,8 @@ public class NPCsController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        dialogue.EndDialoge();
+        animator.SetBool("Talking", false);
         transform.rotation = Quaternion.Slerp(originRotation, transform.rotation, rotationSpeed * Time.deltaTime);
     }
 }

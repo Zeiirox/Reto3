@@ -7,6 +7,7 @@ public class PlayerDamage : MonoBehaviour
     [SerializeField] private float playerLife;
     [SerializeField] private float impactDamage;
     [SerializeField] private float pushingForce;
+    [SerializeField] private float timeToRevive;
 
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Animator animator;
@@ -15,6 +16,25 @@ public class PlayerDamage : MonoBehaviour
     private Vector3 pushDirection;
 
     private float currentLife;
+
+    public float PlayerLife
+    {
+        get { return playerLife; }
+        set { playerLife = value; }
+    }
+
+    public float CurrentLife
+    {
+        get { return currentLife; }
+        set { currentLife = value; }
+    }
+
+    public Image LifeBar
+    {
+        get { return lifeBar; }
+        set { lifeBar = value; }
+    }
+
     private void Start()
     {
         currentLife = playerLife;
@@ -43,17 +63,10 @@ public class PlayerDamage : MonoBehaviour
             playerController.player.Move(pushDirection);
             if (currentLife <= 0)
             {
-                playerController.player.center = new Vector3(0, 1.88f, 0);
-                //playerController.player.enabled = false;
                 animator.SetTrigger("IsDeath");
                 playerController.isDead = true;
             }
         }
-    }
-
-    public void StopAnimator()
-    {
-        //Time.timeScale = 0;
     }
 
 

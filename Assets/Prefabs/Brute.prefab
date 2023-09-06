@@ -494,7 +494,7 @@ GameObject:
   - component: {fileID: 113077718}
   m_Layer: 0
   m_Name: Brute
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -551,7 +551,7 @@ CharacterController:
   m_Height: 2.27
   m_Radius: 0.15
   m_SlopeLimit: 45
-  m_StepOffset: 1
+  m_StepOffset: 0.1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.2, z: -0.02}
@@ -589,9 +589,10 @@ MonoBehaviour:
   slopeForceDown: -10
   mainCamera: {fileID: 0}
   animator: {fileID: 6867308668225331446}
-  player: {fileID: 0}
+  player: {fileID: 1019785424498037947}
   canMove: 0
   isDead: 0
+  collecting: 0
 --- !u!114 &1741308310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +607,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6867308668225331446}
   playerController: {fileID: 1019785424498037940}
+  playerDamage: {fileID: 113077718}
   weaponPlayer: {fileID: 620720683}
+  canAttack: 0
 --- !u!114 &113077718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,6 +625,7 @@ MonoBehaviour:
   playerLife: 100
   impactDamage: 25
   pushingForce: 2
+  timeToRevive: 2
   playerController: {fileID: 1019785424498037940}
   animator: {fileID: 6867308668225331446}
   lifeBar: {fileID: 0}

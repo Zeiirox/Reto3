@@ -14,7 +14,7 @@ public class DialogueController : MonoBehaviour
 
     private void Start()
     {
-        
+        gameObject.SetActive(false);
     }
     // Update is called once per frame
     public void Update()

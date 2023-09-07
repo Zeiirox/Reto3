@@ -12,10 +12,6 @@ public class DialogueController : MonoBehaviour
     public float textSpreed = 0.1f;
     private int index;
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
     // Update is called once per frame
     public void Update()
     {

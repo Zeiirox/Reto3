@@ -24,7 +24,7 @@ public class ManageCrystalsController : MonoBehaviour
     {
         if (collectedCrystals == totalCrystals)
         {
-            Debug.Log("SIIIII GANASTE OMEEE");
+            PlantaSolar.activatePlant = true;
         }
         else
         {

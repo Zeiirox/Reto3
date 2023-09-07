@@ -3664,6 +3664,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel_Large_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 5112380001761819210, guid: 7708cadb150434947b51da69295a30fd, type: 3}
+      propertyPath: manageCrystals
+      value: 
+      objectReference: {fileID: 870504623}
+    - target: {fileID: 5112380001761819210, guid: 7708cadb150434947b51da69295a30fd, type: 3}
+      propertyPath: solarPlantActive
+      value: 
+      objectReference: {fileID: 1317672074}
     - target: {fileID: 5307659877320247293, guid: 7708cadb150434947b51da69295a30fd, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3708,10 +3716,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6477218966864116882, guid: 7708cadb150434947b51da69295a30fd, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7e04f706f9e3f7f468772566c9b75da8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7708cadb150434947b51da69295a30fd, type: 3}
 --- !u!4 &603532835 stripped
@@ -7882,6 +7886,11 @@ PrefabInstance:
 --- !u!4 &1317672073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5307659877320247293, guid: 4acc6938f38363b4a8fe861e86bee392, type: 3}
+  m_PrefabInstance: {fileID: 1317672072}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1317672074 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4819775350285540679, guid: 4acc6938f38363b4a8fe861e86bee392, type: 3}
   m_PrefabInstance: {fileID: 1317672072}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1320951598

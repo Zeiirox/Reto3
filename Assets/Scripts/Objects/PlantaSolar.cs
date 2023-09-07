@@ -4,21 +4,43 @@ using UnityEngine;
 
 public class PlantaSolar : MonoBehaviour
 {
-    [SerializeField] private GameObject solarPlantActive;
     public static bool activatePlant { get; set; }
+    [SerializeField] private GameObject solarPlantActive;
+    [SerializeField] private ManageCrystalsController manageCrystals;
+
+    private bool supply;
 
     // Start is called before the first frame update
     void Start()
     {
+        supply = false;
         solarPlantActive.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            supply = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            supply = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (activatePlant)
+        if (activatePlant && supply && Input.GetKeyDown(KeyCode.E))
         {
+            manageCrystals.ClearScore();
+            gameObject.SetActive(false);
             solarPlantActive.SetActive(true);
         }
         

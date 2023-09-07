@@ -30,9 +30,8 @@ public class ManageCrystalsController : MonoBehaviour
         {
             int indexToEnable = totalCrystals - (collectedCrystals + 1);
             crystals[indexToEnable].gameObject.SetActive(true);
+            counter.text = collectedCrystals + " / " + totalCrystals;
         }
-
-        counter.text = collectedCrystals + " / " + totalCrystals;
     }
 
     private void getAllChild()
@@ -42,4 +41,10 @@ public class ManageCrystalsController : MonoBehaviour
             crystals.Add(transform.GetChild(i));
         }
     }
+
+    public void ClearScore()
+    {
+        counter.text = "0 / 0";
+    }
+
 }

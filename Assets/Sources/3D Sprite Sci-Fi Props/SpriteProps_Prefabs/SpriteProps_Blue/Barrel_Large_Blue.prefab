@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 9081300964615080024}
   - component: {fileID: 6477218966864116882}
   - component: {fileID: 6967085680355945973}
+  - component: {fileID: 7818280351911668485}
+  - component: {fileID: 5112380001761819210}
   m_Layer: 0
   m_Name: Barrel_Large_Blue
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4819775350285540679}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -92,8 +94,35 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4819775350285540679}
   m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.304947, y: 2.4000006, z: 3.0264587}
+  m_Center: {x: -0.075798035, y: 1.2, z: -0.09402084}
+--- !u!65 &7818280351911668485
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819775350285540679}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2, y: 2.4000006, z: 2.0000005}
   m_Center: {x: 0, y: 1.2, z: 0.00000017881393}
+--- !u!114 &5112380001761819210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819775350285540679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975118e241d0a604296124b9cf4436e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solarPlantActive: {fileID: 0}
+  manageCrystals: {fileID: 0}

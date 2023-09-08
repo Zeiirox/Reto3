@@ -11,6 +11,8 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private float textSpreed = 0.1f;
     private int index;
 
+    public bool dialogueEnded { get; set; }
+
     private void Start()
     {
     }
@@ -26,6 +28,8 @@ public class DialogueController : MonoBehaviour
             }
             else
             {
+                playerActions.canAttack = false;
+                //playerActions.canMove = false;
                 StopAllCoroutines();
                 dialogueText.text = lines[index];
             }
@@ -35,7 +39,9 @@ public class DialogueController : MonoBehaviour
 
     public void StartDialogue()
     {
+        dialogueEnded = false;
         playerActions.canAttack = false;
+        //playerActions.canMove = false;
         index = 0;
         string nickName = PlayerPrefs.GetString("nickName") ?? "Zeirox";
         lines[index] = lines[index].Replace("@nickname", nickName);
@@ -61,8 +67,10 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
+            dialogueEnded = true;
+            gameObject.SetActive(false);    
             playerActions.canAttack = true;
-            gameObject.SetActive(false);
+            //playerActions.canMove = true;
         }
     }
 

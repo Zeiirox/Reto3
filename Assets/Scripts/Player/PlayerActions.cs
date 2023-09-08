@@ -12,6 +12,12 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private GameObject weaponPlayer;
 
     public bool canAttack;
+
+    public bool canMove
+    {
+        get { return playerController.canMove; }
+        set { playerController.canMove = value; }
+    }
     void Start()
     {
         canAttack = true;

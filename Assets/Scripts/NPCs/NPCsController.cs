@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class NPCsController : MonoBehaviour
 {
-    [SerializeField] private DialogueController dialogue;
+    [SerializeField] private DialogueController[] dialogues;
+    [SerializeField] private int[] turns;
+    [SerializeField] private NPCsController[] npcs;
     [SerializeField] private float rotationSpeed;
 
+    private Queue<DialogueController> queueDialogues = new Queue<DialogueController>();
     private Animator animator;
-
     private Quaternion originRotation;
+    private DialogueController actualDialogue;
+
+    private bool enableNextDialog;
+    private int nextTurn;
 
     void Start()
     {
+        foreach (DialogueController dialogue in dialogues)
+        {
+            queueDialogues.Enqueue(dialogue);
+        }
+        enableNextDialog = true;
+        nextTurn = 0;
         animator = GetComponent<Animator>();
         originRotation = transform.rotation;
     }
@@ -21,9 +33,17 @@ public class NPCsController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            animator.SetBool("Talking", true);
-            dialogue.gameObject.SetActive(true);
-            dialogue.StartDialogue();
+            if (queueDialogues.Count > 0 && gameObject == npcs[turns[nextTurn]].gameObject)
+            {
+                if (enableNextDialog)
+                {
+                    enableNextDialog = false;
+                    actualDialogue = queueDialogues.Dequeue();
+                }
+                animator.SetBool("Talking", true);
+                actualDialogue.gameObject.SetActive(true);
+                actualDialogue.StartDialogue();
+            }
         }
     }
 
@@ -39,8 +59,26 @@ public class NPCsController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        dialogue.EndDialoge();
-        animator.SetBool("Talking", false);
-        transform.rotation = Quaternion.Slerp(originRotation, transform.rotation, rotationSpeed * Time.deltaTime);
+        if (gameObject == npcs[turns[nextTurn]].gameObject)
+        {
+            if (actualDialogue.dialogueEnded)
+            {
+                enableNextDialog = false;
+                nextTurn++;
+                if (nextTurn >= turns.Length - 1)
+                {
+                    nextTurn = turns.Length - 1;
+                }
+                if (gameObject != npcs[turns[nextTurn]].gameObject)
+                {
+                    npcs[turns[nextTurn]].nextTurn++;
+                }
+                npcs[turns[nextTurn]].enableNextDialog = true;
+            }
+            actualDialogue.EndDialoge();
+            animator.SetBool("Talking", false);
+            transform.rotation = Quaternion.Slerp(originRotation, transform.rotation, rotationSpeed * Time.deltaTime);
+
+        }
     }
 }

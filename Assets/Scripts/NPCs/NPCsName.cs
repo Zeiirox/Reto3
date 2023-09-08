@@ -7,9 +7,11 @@ public class NPCsName : MonoBehaviour
     [SerializeField] private Transform player;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.LookAt(player.transform);
+        if (Camera.main == null) return;
 
+        transform.LookAt(Camera.main.transform.position);
+        transform.Rotate(0, 180, 0);
     }
 }

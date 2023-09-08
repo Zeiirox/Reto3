@@ -7,10 +7,13 @@ public class DialogueController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private PlayerActions playerActions;
-
-    public string[] lines;
-    public float textSpreed = 0.1f;
+    [SerializeField] private string[] lines;
+    [SerializeField] private float textSpreed = 0.1f;
     private int index;
+
+    private void Start()
+    {
+    }
 
     // Update is called once per frame
     public void Update()
@@ -34,6 +37,8 @@ public class DialogueController : MonoBehaviour
     {
         playerActions.canAttack = false;
         index = 0;
+        string nickName = PlayerPrefs.GetString("nickName") ?? "Zeirox";
+        lines[index] = lines[index].Replace("@nickname", nickName);
         StartCoroutine(WriteLine());
     }
 

@@ -7,6 +7,8 @@ public class PlantaSolar : MonoBehaviour
     public static bool activatePlant { get; set; }
     [SerializeField] private GameObject solarPlantActive;
     [SerializeField] private ManageCrystalsController manageCrystals;
+    [SerializeField] private GameObject letter;
+
 
     private bool supply;
 
@@ -21,6 +23,7 @@ public class PlantaSolar : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            letter.SetActive(true);
             supply = true;
         }
     }
@@ -29,6 +32,7 @@ public class PlantaSolar : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            letter.SetActive(false);
             supply = false;
         }
     }
@@ -42,6 +46,7 @@ public class PlantaSolar : MonoBehaviour
             manageCrystals.ClearScore();
             gameObject.SetActive(false);
             solarPlantActive.SetActive(true);
+            letter.SetActive(false);
         }
         
     }

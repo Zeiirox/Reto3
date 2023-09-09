@@ -85,6 +85,10 @@ public class NPCsController : MonoBehaviour
                 }
                 npcs[turns[nextTurn]].arrow.SetActive(true);
                 npcs[turns[nextTurn]].enableNextDialog = true;
+                //if (gameObject == npcs)
+                //{
+                //    ManageCrystalsController.enableCrystals = true;
+                //}
             }
             actualDialogue.EndDialoge();
             animator.SetBool("Talking", false);

@@ -63,6 +63,10 @@ public class PlayerActions : MonoBehaviour
 
     public void Revive()
     {
+        float x = PlayerPrefs.GetFloat("checkPointX");
+        float y = PlayerPrefs.GetFloat("checkPointY");
+        float z = PlayerPrefs.GetFloat("checkPointZ");
+        transform.position = new Vector3(x, y, z);
         playerController.isDead = false;
         animator.Play("PlayerMotion");
         playerDamage.CurrentLife = playerDamage.PlayerLife;

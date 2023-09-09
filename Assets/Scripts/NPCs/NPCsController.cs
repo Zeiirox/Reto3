@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class NPCsController : MonoBehaviour
 {
+    [SerializeField] private GameObject arrow;
+    [SerializeField] private float rotationSpeed;
     [SerializeField] private DialogueController[] dialogues;
     [SerializeField] private int[] turns;
     [SerializeField] private NPCsController[] npcs;
-    [SerializeField] private float rotationSpeed;
 
     private Queue<DialogueController> queueDialogues = new Queue<DialogueController>();
     private Animator animator;
@@ -25,6 +26,7 @@ public class NPCsController : MonoBehaviour
         }
         enableNextDialog = true;
         nextTurn = 0;
+        npcs[turns[nextTurn]].arrow.SetActive(true);
         animator = GetComponent<Animator>();
         originRotation = transform.rotation;
     }
@@ -47,6 +49,13 @@ public class NPCsController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (queueDialogues.Count <= 0) {
+            arrow.SetActive(false);
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -63,6 +72,7 @@ public class NPCsController : MonoBehaviour
         {
             if (actualDialogue.dialogueEnded)
             {
+                arrow.SetActive(false);
                 enableNextDialog = false;
                 nextTurn++;
                 if (nextTurn >= turns.Length - 1)
@@ -73,6 +83,7 @@ public class NPCsController : MonoBehaviour
                 {
                     npcs[turns[nextTurn]].nextTurn++;
                 }
+                npcs[turns[nextTurn]].arrow.SetActive(true);
                 npcs[turns[nextTurn]].enableNextDialog = true;
             }
             actualDialogue.EndDialoge();

@@ -22,16 +22,15 @@ public class ManageCrystalsController : MonoBehaviour
 
     void Update()
     {
+
         if (collectedCrystals == totalCrystals)
         {
             PlantaSolar.activatePlant = true;
         }
-        else
-        {
-            int indexToEnable = totalCrystals - (collectedCrystals + 1);
-            crystals[indexToEnable].gameObject.SetActive(true);
-            counter.text = collectedCrystals + " / " + totalCrystals;
-        }
+        int indexToEnable = totalCrystals - (collectedCrystals + 1);
+        indexToEnable = indexToEnable <= 0 ? 0 : indexToEnable;
+        crystals[indexToEnable].gameObject.SetActive(true);
+        counter.text = collectedCrystals + " / " + totalCrystals;
     }
 
     private void getAllChild()

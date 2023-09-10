@@ -8,6 +8,8 @@ public class ObjectDamage : MonoBehaviour
 {
     [SerializeField] private float objectLife;
     [SerializeField] private float impactDamage;
+
+    [SerializeField] private Animator animator;
     [SerializeField] private GameObject particle;
     [SerializeField] private Image bloodImage;
     [SerializeField] private TextMeshProUGUI lifeText;
@@ -38,6 +40,10 @@ public class ObjectDamage : MonoBehaviour
     {
         if (other.gameObject.CompareTag("WeaponPlayer"))
         {
+            if (animator)
+            {
+                animator.SetTrigger("Damage");
+            }
             currentLife -= impactDamage;
             Instantiate(particle, other.transform.position, Quaternion.identity);
         }

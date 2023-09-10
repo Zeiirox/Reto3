@@ -80,6 +80,8 @@ public class EnemiesAI : MonoBehaviour
         }
     }
 
+    //public void awaitAttack()
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

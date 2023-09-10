@@ -65,7 +65,7 @@ public class PlayerDamage : MonoBehaviour
             {
                 animator.SetTrigger("IsDeath");
                 playerController.isDead = true;
-                other.GetComponent<CapsuleCollider>().isTrigger = false;
+                other.GetComponent<Collider>().isTrigger = false;
                 StartCoroutine(EnableTrigger(other));
             }
         }
@@ -74,7 +74,10 @@ public class PlayerDamage : MonoBehaviour
     IEnumerator EnableTrigger(Collider other)
     {
         yield return new WaitForSeconds(5);
-        other.GetComponent<CapsuleCollider>().isTrigger = true;
+        if (other)
+        {
+            other.GetComponent<Collider>().isTrigger = true;
+        }
     }
 
 

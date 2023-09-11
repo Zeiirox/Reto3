@@ -419,6 +419,10 @@ PrefabInstance:
       value: Barrel_Large_Blue
       objectReference: {fileID: 0}
     - target: {fileID: 5112380001761819210, guid: 7708cadb150434947b51da69295a30fd, type: 3}
+      propertyPath: letter
+      value: 
+      objectReference: {fileID: 1268381451}
+    - target: {fileID: 5112380001761819210, guid: 7708cadb150434947b51da69295a30fd, type: 3}
       propertyPath: manageCrystals
       value: 
       objectReference: {fileID: 0}

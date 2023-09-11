@@ -15,6 +15,8 @@ public class PlayerDamage : MonoBehaviour
 
     private Vector3 pushDirection;
 
+    private AudioManager audioManager;
+
     private float currentLife;
 
     public float PlayerLife
@@ -40,6 +42,11 @@ public class PlayerDamage : MonoBehaviour
         currentLife = playerLife;
     }
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     private void FixedUpdate()
     {
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
@@ -63,6 +70,7 @@ public class PlayerDamage : MonoBehaviour
             playerController.player.Move(pushDirection);
             if (currentLife <= 0)
             {
+                audioManager.PlaySFX(audioManager.death);
                 animator.SetTrigger("IsDeath");
                 playerController.isDead = true;
                 other.GetComponent<Collider>().isTrigger = false;

@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
-
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerDamage playerDamage;
     [SerializeField] private GameObject weaponPlayer;
+
+    private AudioManager audioManager;
 
     public bool canAttack;
 
@@ -17,6 +18,11 @@ public class PlayerActions : MonoBehaviour
     {
         get { return playerController.canMove; }
         set { playerController.canMove = value; }
+    }
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     void Start()
     {
@@ -30,6 +36,7 @@ public class PlayerActions : MonoBehaviour
             && !playerController.isDead
             && canAttack)
         {
+            audioManager.PlaySFX(audioManager.attack);
             animator.SetTrigger("Attack");
 
         }

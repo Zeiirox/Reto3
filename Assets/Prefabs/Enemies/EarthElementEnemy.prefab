@@ -3531,6 +3531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectLife: 100
   impactDamage: 20
+  animator: {fileID: 2170372585012917263}
   particle: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   bloodImage: {fileID: 6134676845375847569}
   lifeText: {fileID: 6134676845653607100}
@@ -3555,7 +3556,7 @@ MonoBehaviour:
   - {fileID: 6134676846226111285}
   - {fileID: 6134676846422263424}
   - {fileID: 2998648293241548911}
-  enemyRange: 5
+  enemyRange: 15
   startWaitTime: 4
 --- !u!1 &4886675855998135737
 GameObject:

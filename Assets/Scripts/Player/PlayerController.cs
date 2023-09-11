@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slideVelocity = 3;
     [SerializeField] private float slopeForceDown = -10;
 
+    [SerializeField] private AudioManager audioManager;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Animator animator;
 
@@ -36,6 +37,10 @@ public class PlayerController : MonoBehaviour
     public bool isDead;
     public bool collecting;
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     void Start()
     {
@@ -57,13 +62,24 @@ public class PlayerController : MonoBehaviour
             walkVelocity = playerInput.magnitude * playerSpeed;
             animator.SetFloat("PlayerWalkVelocity", walkVelocity);
 
-            if (walkVelocity > 0 && Input.GetKey(KeyCode.LeftShift))
+            if (walkVelocity > 0)
             {
-                playerSpeed = playerRunSpeed;
-                animator.SetBool("isRunning", true);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    Debug.Log("run");
+                    audioManager.PlaySFX(audioManager.run);
+                    playerSpeed = playerRunSpeed;
+                    animator.SetBool("isRunning", true);
+                }
+                else
+                {
+                    Debug.Log("walk1");
+                    audioManager.PlaySFX(audioManager.walk);
+                }
             }
             else
             {
+                Debug.Log("walk2");
                 playerSpeed = originalPlayerSpeed;
                 animator.SetBool("isRunning", false);
             }
@@ -116,6 +132,7 @@ public class PlayerController : MonoBehaviour
     {
         if (player.isGrounded && Input.GetButtonDown("Jump"))
         {
+            audioManager.PlaySFX(audioManager.jump);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
             animator.SetTrigger("PlayerJump");
@@ -137,8 +154,5 @@ public class PlayerController : MonoBehaviour
     {
         hitNormal = hit.normal;
     }
-    private void OnAnimatorMove()
-    {
-        
-    }
+    private void OnAnimatorMove(){}
 }

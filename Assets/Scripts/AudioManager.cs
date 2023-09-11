@@ -21,6 +21,9 @@ public class AudioManager : MonoBehaviour
     [Header("-------- Audio Clip - UI --------")]
     public AudioClip clickButtom;
 
+    [Header("-------- PowerUps --------")]
+    public AudioClip powerUp;
+
     private void Start()
     {
         musicSource.clip = background;

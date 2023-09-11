@@ -77,6 +77,6 @@ public class PlayerActions : MonoBehaviour
         transform.position = new Vector3(x, y, z);
         playerController.isDead = false;
         playerDamage.CurrentLife = playerDamage.PlayerLife;
-        playerDamage.LifeBar.fillAmount = playerDamage.CurrentLife / playerDamage.PlayerLife;
+        playerDamage.SetLifePlayer();
     }
 }

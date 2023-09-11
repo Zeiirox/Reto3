@@ -35,7 +35,9 @@ public class NPCsController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (queueDialogues.Count > 0 && gameObject == npcs[turns[nextTurn]].gameObject)
+            if (queueDialogues.Count > 0 
+                && gameObject == npcs[turns[nextTurn]].gameObject
+                || !actualDialogue.dialogueEnded)
             {
                 if (enableNextDialog)
                 {

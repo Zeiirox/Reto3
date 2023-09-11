@@ -17,6 +17,10 @@ public class MainPanel : MonoBehaviour
     private float lastVolume;
     private AudioManager audioManager;
 
+    [Header("Name Panel")]
+    public TMP_InputField inputNickName;
+    public Button continueButton;
+
     [Header("Game Options")]
     public Toggle fullScreen;
     public TMP_Dropdown qualities;
@@ -24,17 +28,18 @@ public class MainPanel : MonoBehaviour
     private Resolution[] localResolutions;
 
     [Header("Panels")]
-    public GameObject mainPanel;
-    public GameObject optionsPanel;
-    public GameObject gameOptionsPanel;
-    public GameObject levelSelectPanel;
+    public GameObject[] panels;
 
     private void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         mute.isOn = PlayerPrefs.GetInt("mute") == 1;
-        //SetMute();
+        if (inputNickName)
+        {
+            inputNickName.text = PlayerPrefs.GetString("nickname", "");
+        }
     }
+
     private void Awake()
     {
         volumeFX.value = PlayerPrefs.GetFloat("VolFX", volumeFX.value);
@@ -52,8 +57,30 @@ public class MainPanel : MonoBehaviour
         fullScreen.isOn = PlayerPrefs.GetInt("fullScreen") != 0;
         fullScreen.onValueChanged.AddListener(ChangeFullScreen);
 
+        if (inputNickName)
+        {
+            inputNickName.text = PlayerPrefs.GetString("nickname", "");
+            inputNickName.onValueChanged.AddListener(CheckInputNickname);
+        }
+
     }
 
+    public void PlayGame()
+    {
+        Time.timeScale = 1;
+        ClosePanels();
+    }
+
+    public void PauseGame(GameObject panel)
+    {
+        Time.timeScale = 0;
+        OpenPanel(panel);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
@@ -61,12 +88,23 @@ public class MainPanel : MonoBehaviour
 
     public void OpenPanel(GameObject panel)
     {
-        mainPanel.SetActive(false);
-        optionsPanel.SetActive(false);
-        gameOptionsPanel.SetActive(false);
-        levelSelectPanel.SetActive(false);
+
+        foreach (GameObject p in panels)
+        {
+            p.SetActive(false);
+        }
 
         panel.SetActive(true);
+        PlaySoundButton();
+    }
+
+    public void ClosePanels()
+    {
+
+        foreach (GameObject p in panels)
+        {
+            p.SetActive(false);
+        }
         PlaySoundButton();
     }
 
@@ -148,5 +186,18 @@ public class MainPanel : MonoBehaviour
     {
         Screen.fullScreen = b;
         PlayerPrefs.SetInt("fullScreen", b ? 1 : 0);
+    }
+
+    public void CheckInputNickname(string t)
+    {
+        if (t.Length >= 3)
+        {
+            continueButton.interactable = true;
+        }
+        else
+        {
+            continueButton.interactable = false;
+        }
+        PlayerPrefs.SetString("nickname", t);
     }
 }

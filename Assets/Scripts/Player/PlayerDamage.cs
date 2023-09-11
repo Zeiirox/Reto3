@@ -64,9 +64,9 @@ public class PlayerDamage : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            currentLife -= impactDamage;
             animator.SetTrigger("TakingDamage");
-            lifeBar.fillAmount = currentLife / playerLife;
+            currentLife -= impactDamage;
+            SetLifePlayer();
             playerController.player.Move(pushDirection);
             if (currentLife <= 0)
             {
@@ -88,5 +88,9 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    public void SetLifePlayer()
+    {
+        lifeBar.fillAmount = currentLife / playerLife;
+    }
 
 }

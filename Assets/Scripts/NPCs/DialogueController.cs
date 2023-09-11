@@ -29,7 +29,6 @@ public class DialogueController : MonoBehaviour
             else
             {
                 playerActions.canAttack = false;
-                //playerActions.canMove = false;
                 StopAllCoroutines();
                 dialogueText.text = lines[index];
             }
@@ -41,9 +40,8 @@ public class DialogueController : MonoBehaviour
     {
         dialogueEnded = false;
         playerActions.canAttack = false;
-        //playerActions.canMove = false;
         index = 0;
-        string nickName = PlayerPrefs.GetString("nickName") ?? "Zeirox";
+        string nickName = PlayerPrefs.GetString("nickname") ?? "Zeirox";
         lines[index] = lines[index].Replace("@nickname", nickName);
         StartCoroutine(WriteLine());
     }
@@ -70,7 +68,6 @@ public class DialogueController : MonoBehaviour
             dialogueEnded = true;
             gameObject.SetActive(false);    
             playerActions.canAttack = true;
-            //playerActions.canMove = true;
         }
     }
 
